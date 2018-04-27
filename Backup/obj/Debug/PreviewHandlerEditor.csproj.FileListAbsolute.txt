@@ -1,0 +1,11 @@
+T:\Central\Src\Backup\bin\Debug\PreviewHandlerEditor.exe.config
+T:\Central\Src\Backup\bin\Debug\PreviewHandlerEditor.exe
+T:\Central\Src\Backup\bin\Debug\PreviewHandlerEditor.pdb
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.AboutBox.resources
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.MainForm.resources
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.Properties.Resources.resources
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.csproj.GenerateResource.Cache
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.csproj.CoreCompileInputs.cache
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.exe
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.pdb
+T:\Central\Src\Backup\obj\Debug\PreviewHandlerEditor.csprojResolveAssemblyReference.cache

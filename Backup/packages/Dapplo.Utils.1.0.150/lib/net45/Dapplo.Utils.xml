@@ -1,0 +1,921 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.Utils</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.Utils.AbcComparer">
+            <summary>
+                A StringComparer which ignores everything which is not a letter
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.AbcComparer.Compare(System.String,System.String)">
+            <summary>
+            Implement the StringComparer.Compare
+            </summary>
+            <param name="x">string</param>
+            <param name="y">string</param>
+            <returns>
+            A signed integer that indicates the relative values of x and y, as shown in the following table.
+            Less than zero: x precedes y in the sort order -or-x is null and y is not null.
+            Zero: x is equal to y -or-x and y are both null.
+            Greater than zero: x follows y in the sort order -or- y is null and x is not null.</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AbcComparer.Equals(System.String,System.String)">
+            <summary>
+            Check if values are equal
+            </summary>
+            <param name="x">string</param>
+            <param name="y">string</param>
+            <returns>true if x and y are the same</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AbcComparer.GetHashCode(System.String)">
+            <summary>
+            Returns the hashcode of the passed string after it was modified by removing all non digits or alphas, and running tolower.
+            </summary>
+            <param name="obj">string</param>
+            <returns>int with hashcode</returns>
+        </member>
+        <member name="T:Dapplo.Utils.AsyncLock">
+            <summary>
+                A simple class to make it possible to lock a resource while waiting
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.LockAsync">
+            <summary>
+                usage
+                using(var lock = await asyncLock.LockAsync()) {
+                }
+            </summary>
+            <returns>disposable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.LockAsync(System.Threading.CancellationToken)">
+            <summary>
+                usage
+                using(var lock = await asyncLock.LockAsync()) {
+                }
+            </summary>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>disposable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.LockAsync(System.TimeSpan)">
+            <summary>
+                usage
+                using(var lock = await asyncLock.LockAsync(TimeSpan.FromMilliSeconds(100))) {
+                }
+            </summary>
+            <param name="timeout">TimeSpan</param>
+            <returns>disposable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.DisposeInternal">
+            <summary>
+                Dispose the current async lock, and it's underlying SemaphoreSlim
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.Finalize">
+            <summary>
+                Finalizer, as it would be bad to leave a SemaphoreSlim hanging around
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncLock.Dispose">
+            <summary>
+                Implementation of the IDisposable
+            </summary>
+        </member>
+        <member name="T:Dapplo.Utils.AsyncMemoryCache`2">
+            <summary>
+                This abstract class builds a base for a simple async memory cache.
+            </summary>
+            <typeparam name="TKey">Type for the key</typeparam>
+            <typeparam name="TResult">Type for the stored value</typeparam>
+        </member>
+        <member name="P:Dapplo.Utils.AsyncMemoryCache`2.ExpireTimeSpan">
+            <summary>
+                Set the timespan for items to expire.
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.AsyncMemoryCache`2.SlidingTimeSpan">
+            <summary>
+                Set the timespan for items to slide.
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.AsyncMemoryCache`2.ActivateRemovedCallback">
+            <summary>
+                Specifies if the RemovedCallback needs to be called
+                If this is active, ActivateUpdateCallback should be false
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.AsyncMemoryCache`2.ActivateUpdateCallback">
+            <summary>
+                Specifies if the UpdateCallback needs to be called.
+                If this is active, ActivateRemovedCallback should be false
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.CreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+                Implement this method, it should create an instance of TResult via the supplied TKey.
+            </summary>
+            <param name="key">TKey</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.CreateKey(`0)">
+            <summary>
+                Creates a key under which the object is stored or retrieved, default is a toString on the object.
+            </summary>
+            <param name="keyObject">TKey</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.DeleteAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+                Get an element from the cache, if this is not available call the create function.
+            </summary>
+            <param name="keyObject">object for the key</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.GetAsync(`0)">
+            <summary>
+                Get a task element from the cache, if this is not available return null.
+                You probably want to call GetOrCreateAsync
+            </summary>
+            <param name="keyObject">object for the key</param>
+            <returns>Task with TResult, null if no value</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.GetOrCreateAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+                Get a task element from the cache, if this is not available call the create function.
+            </summary>
+            <param name="keyObject">object for the key</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task with TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.GetOrCreateAsync(`0,System.Runtime.Caching.CacheItemPolicy,System.Threading.CancellationToken)">
+            <summary>
+                Get a task element from the cache, if this is not available call the create function.
+            </summary>
+            <param name="keyObject">object for the key</param>
+            <param name="cacheItemPolicy">CacheItemPolicy for when you want more control over the item</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task with TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.GetOrCreateInternalAsync(`0,System.Runtime.Caching.CacheItemPolicy,System.Threading.CancellationToken)">
+            <summary>
+                This takes care of the real async part of the code.
+            </summary>
+            <param name="keyObject"></param>
+            <param name="cacheItemPolicy">CacheItemPolicy for when you want more control over the item</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.RemovedCallback(System.Runtime.Caching.CacheEntryRemovedArguments)">
+            <summary>
+                Override to know when an item is removed, make sure to configure ActivateUpdateCallback / ActivateRemovedCallback
+            </summary>
+            <param name="cacheEntryRemovedArguments">CacheEntryRemovedArguments</param>
+        </member>
+        <member name="M:Dapplo.Utils.AsyncMemoryCache`2.UpdateCallback(System.Runtime.Caching.CacheEntryUpdateArguments)">
+            <summary>
+                Override to modify the cache behaviour when an item is about to be removed, make sure to configure
+                ActivateUpdateCallback / ActivateRemovedCallback
+            </summary>
+            <param name="cacheEntryUpdateArguments">CacheEntryUpdateArguments</param>
+        </member>
+        <member name="T:Dapplo.Utils.IHaveEvents">
+            <summary>
+            Marker interface for objects which contain events, this enables event extension methods.
+            </summary>
+        </member>
+        <member name="T:Dapplo.Utils.IShallowCloneable">
+            <summary>
+            The interface for the ShallowClone method.
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.IShallowCloneable.ShallowClone">
+            <summary>
+            Make a memberwise clone of the object, this is "shallow".
+            </summary>
+            <returns>"Shallow" Cloned instance</returns>
+        </member>
+        <member name="T:Dapplo.Utils.IShallowCloneable`1">
+            <summary>
+            The interface for the generic ShallowClone method.
+            </summary>
+            <typeparam name="T">Type of the copy which is returned</typeparam>
+        </member>
+        <member name="M:Dapplo.Utils.IShallowCloneable`1.ShallowClone">
+            <summary>
+            Make a memberwise clone of the object, this is "shallow".
+            </summary>
+            <returns>"Shallow" Cloned instance of type T</returns>
+        </member>
+        <member name="T:Dapplo.Utils.SimpleDisposable">
+            <summary>
+                A simple way to return something, which calls an action on Dispose.
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.SimpleDisposable.Dispose">
+            <summary>
+                Dispose will call the stored action
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.SimpleDisposable.Create(System.Action)">
+            <summary>
+                Create an IDisposable which will call the passed action on Dispose.
+            </summary>
+            <param name="action">Action to call when the object is disposed.</param>
+            <returns>IDisposable</returns>
+        </member>
+        <member name="T:Dapplo.Utils.UiContext">
+            <summary>
+                This helps to make sure Tasks can have access to the UI
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.UiContext.UiTaskScheduler">
+            <summary>
+                The TaskScheduler for the UI
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.UiContext.HasUiAccess">
+            <summary>
+                Checks if there is UI access possible
+            </summary>
+        </member>
+        <member name="P:Dapplo.Utils.UiContext.HasScheduler">
+            <summary>
+                Checks if there is UI scheduler
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.UiContext.Initialize">
+            <summary>
+                Initialize to get the UI TaskScheduler
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.UiContext.RunOn``1(System.Func{``0},System.Threading.CancellationToken)">
+            <summary>
+                Run your action on the UI, if needed.
+                Initialize() should be called once, otherwise the taskpool is used.
+            </summary>
+            <param name="function">Action to run</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task of TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.UiContext.RunOn``1(System.Func{System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+                Run your action on the UI, if needed.
+                Initialize() should be called once, otherwise the taskpool is used.
+            </summary>
+            <param name="function">Function to run</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task of TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.UiContext.RunOn(System.Action,System.Threading.CancellationToken)">
+            <summary>
+                Run your action on the UI, if needed.
+                Initialize() should be called once, otherwise the taskpool is used.
+            </summary>
+            <param name="action">Action to run</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2">
+            <summary>
+                An observable concurrent dictionary
+            </summary>
+            <typeparam name="TKey">Type for the key</typeparam>
+            <typeparam name="TValue">Type for the value</typeparam>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+                Constructor with a comparer
+            </summary>
+            <param name="comparer">IEqualityComparer for TKey</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})">
+            <summary>
+                Constructor with a collection
+            </summary>
+            <param name="collection">IEnumerable of KeyValuePair</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+                Constructor with a collection and comparer
+            </summary>
+            <param name="collection">IEnumerable of KeyValuePair</param>
+            <param name="comparer">IEqualityComparer of TKey</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Int32,System.Int32)">
+            <summary>
+                Constructor with a concurrency level and a capacity
+            </summary>
+            <param name="concurrencyLevel">int</param>
+            <param name="capacity">int</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+                Constructor with a concurrency level, a capacity and a comparer
+            </summary>
+            <param name="concurrencyLevel">int</param>
+            <param name="capacity">int</param>
+            <param name="comparer">IEqualityComparer of TKey</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+                Constructor with a concurrency level, a collection and a comparer
+            </summary>
+            <param name="concurrencyLevel">int</param>
+            <param name="collection">IEnumerable of KeyValuePair</param>
+            <param name="comparer">IEqualityComparer of TKey</param>
+        </member>
+        <member name="E:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.CollectionChanged">
+            <summary>
+                Notify of collection changed events
+            </summary>
+        </member>
+        <member name="E:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.PropertyChanged">
+            <summary>
+                Notify of Property changed events
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.AddOrUpdate(`0,`1,System.Func{`0,`1,`1})">
+            <summary>
+                Add or update the value
+            </summary>
+            <param name="key">TKey</param>
+            <param name="addValue">TValue</param>
+            <param name="updateValueFactory">Func which can decide if an update needs to be made</param>
+            <returns>TValue</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.AddNotifyPropertyChangedForwarding(`1)">
+            <summary>
+                Enable NPC forwarding (if the type implements INotifyPropertyChanged )
+            </summary>
+            <param name="value">TValue</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.RemoveNotifyPropertyChangedForwarding(`1)">
+            <summary>
+                Disable NPC forwarding (if the type implements INotifyPropertyChanged )
+            </summary>
+            <param name="value">TValue</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.ForwardPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+                Forwarder in it's own method, so we can deregister again
+            </summary>
+            <param name="sender">object</param>
+            <param name="propertyChangedEventArgs">PropertyChangedEventArgs</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.AddOrUpdate(`0,System.Func{`0,`1},System.Func{`0,`1,`1})">
+            <summary>
+                Add or update the value
+            </summary>
+            <param name="key">TKey</param>
+            <param name="addValueFactory">Func to add the value</param>
+            <param name="updateValueFactory">Func to update the value</param>
+            <returns>TValue</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.Clear">
+            <summary>
+                Clear the dictionary and notify of reset
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.GetOrAdd(`0,`1)">
+            <summary>
+                Get or add the value
+            </summary>
+            <param name="key">TKey</param>
+            <param name="value">TValue</param>
+            <returns>TValue</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.GetOrAdd(`0,System.Func{`0,`1})">
+            <summary>
+                Get or add, using a value factory
+            </summary>
+            <param name="key"></param>
+            <param name="valueFactory">Func to generate a value</param>
+            <returns>TValue</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.TryAdd(`0,`1)">
+            <summary>
+                Try to add a value by key
+            </summary>
+            <param name="key">TKey</param>
+            <param name="value">TValue</param>
+            <returns>bool true if adding worked</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.Remove(`0)">
+            <summary>
+            Remove an element by key
+            </summary>
+            <param name="key">TKey</param>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.TryRemove(`0,`1@)">
+            <summary>
+                Try to remove a value by key
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>bool true if the remove succeded</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.ObservableConcurrentDictionary`2.TryUpdate(`0,`1,`1)">
+            <summary>
+                Try to update a value
+            </summary>
+            <param name="key">TKey</param>
+            <param name="newValue">TValue</param>
+            <param name="comparisonValue">TValue</param>
+            <returns>bool true if update succeded</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Collections.TrulyObservableCollection`1">
+            <summary>
+                A which comes from
+                <a
+                    href="http://stackoverflow.com/questions/1427471/observablecollection-not-noticing-when-item-in-it-changes-even-with-inotifyprop">
+                    here
+                </a>
+            </summary>
+            <typeparam name="T">Type for the collection items</typeparam>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.TrulyObservableCollection`1.#ctor">
+            <summary>
+                Constructor
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Collections.TrulyObservableCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+                Constructor which a IEnumerable
+            </summary>
+            <param name="pItems"></param>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.DictionaryExtensions">
+            <summary>
+                A few Dictionary helper extensions, e.g. used in FormatWith
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.DictionaryExtensions.AddWhenNew``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+                Only add when the key isn't in the dictionary yet
+            </summary>
+            <typeparam name="TKey">type for the Key</typeparam>
+            <typeparam name="TValue">type for the value</typeparam>
+            <param name="dictionary">IDictionary</param>
+            <param name="key">new key of type TKey</param>
+            <param name="value">value of type TValue</param>
+            <returns>IDictionary so fluent calls are possible</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.DictionaryExtensions.DictionaryToGenericDictionary``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.IDictionary)">
+            <summary>
+                Map a dictionary to properties
+            </summary>
+            <param name="properties">IDictionary with properties to add to</param>
+            <param name="dictionary">dictionary to process, or null due to "as" cast</param>
+            <returns>false if dictionary was null</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.EnumerableExtensions">
+            <summary>
+                Simple IEnumerable extensions.
+                These are in a different package so it doesn't hinder other IEnumerable extensions.
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.ToListAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Convert a linq query to an task which can be awaited.
+            </summary>
+            <param name="source">IEnumerable of type TResult</param>
+            <param name="cancellationToken">optional CancellationToken</param>
+            <typeparam name="TResult">The type for the result</typeparam>
+            <returns>Task with an IEnumerable of type TResult</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.ForEachAsync``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+                An async version of the ForEach extension, with an optional predicate
+            </summary>
+            <typeparam name="T">Type of the IEnumerable</typeparam>
+            <param name="source">The IEnumerable</param>
+            <param name="action">Action to call for each item</param>
+            <param name="predicate">Predicate func</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>Task to await for</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+                A simple foreach, with an optional predicate
+            </summary>
+            <typeparam name="T">Type of the IEnumerable</typeparam>
+            <param name="source">The IEnumerable</param>
+            <param name="action">Action to call for each item</param>
+            <param name="predicate">Predicate func</param>
+            <param name="cancellationToken">CancellationToken, which breaks the enumeration</param>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.AnyAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Returns if there is any (matching) value in the source
+            </summary>
+            <typeparam name="T">Type for the IEnumerable</typeparam>
+            <param name="source">IEnumerable of T</param>
+            <param name="predicate">Func which takes a T and returns a bool, can be null</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>true if there was a value, false if not</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.FirstAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Returns the first, blocks until there is something, throws an InvalidOperationException when cancelled or when there are no items left
+            </summary>
+            <typeparam name="T">Type for the IEnumerable</typeparam>
+            <param name="source">IEnumerable of T</param>
+            <param name="predicate">Func which takes a T and returns a bool</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>first T in the IEnumerable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.CountAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Boolean},System.Threading.CancellationToken)">
+            <summary>
+            Returns the count of the items in the source
+            </summary>
+            <param name="source">IEnumerable of T</param>
+            <param name="predicate">Func which takes a T and returns a bool</param>
+            <param name="cancellationToken">CancellationToken</param>
+            <returns>first T in the IEnumerable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.SkipLast``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Skip the last n elements of an IEnumerable
+            </summary>
+            <typeparam name="T">Type for the IEnumerable</typeparam>
+            <param name="source"></param>
+            <param name="skipN">the number of elements to skip, default is 1 and should be positive (0 skips nothing)</param>
+            <returns>IEnumerable</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumerableExtensions.InternalSkipLast``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Internal method to skip the last n elements of an IEnumerable
+            </summary>
+            <typeparam name="T">Type for the IEnumerable</typeparam>
+            <param name="source"></param>
+            <param name="skipN">the number of elements to skip, default is 1 and should be positive (0 skips nothing)</param>
+            <returns>IEnumerable</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.EnumExtensions">
+            <summary>
+                Extensions for enums
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EnumExtensions.EnumValueOf(System.Enum)">
+            <summary>
+                The returns the Value from the EnumMemberAttribute, or a ToString on the element.
+                This can be used to create a lookup from string to enum element
+            </summary>
+            <param name="enumerationItem">Enum</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.EventExtensions">
+            <summary>
+                Extensions for IHaveEvents and IEventObservable
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EventExtensions.RemoveEventHandlers(Dapplo.Utils.IHaveEvents,System.String)">
+            <summary>
+                Removes all the event handlers on a IHaveEvents
+                This is usefull to do internally, after a clone is made, to prevent memory leaks
+            </summary>
+            <param name="haveEvents">IHaveEvents instance</param>
+            <param name="regExPattern">Regular expression to match the even names, null for alls</param>
+            <returns>number of removed event handlers</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.EventExtensions.RemoveEventHandlersFromObject(System.Object,System.String)">
+            <summary>
+                Removes all the event handlers from the defined events in an object
+                This is usefull to do internally, after a MemberwiseClone is made, to prevent memory leaks
+            </summary>
+            <param name="instance">object instance where events need to be removed</param>
+            <param name="regExPattern">Regular expression to match the even names, null for alls</param>
+            <returns>number of removed events</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.ExpressionExtensions">
+            <summary>
+                Lambda expressions Utils
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.ExpressionExtensions.GetMemberName``1(System.Linq.Expressions.Expression{System.Action{``0}})">
+            <summary>
+                Non extension helper method to get a refactorable name of a member.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="expression"></param>
+            <returns>Name of member</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.ExpressionExtensions.GetMemberName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Non extension helper method to get a refactorable name of a member.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TProp"></typeparam>
+            <param name="expression"></param>
+            <returns>Name of member</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.ExpressionExtensions.GetMemberName(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+                Get the name of the member in a Lambda expression
+            </summary>
+            <param name="memberSelector">LambdaExpression</param>
+            <returns>string with the member name</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.PropertyInfoExtension">
+            <summary>
+            Extensions for PropertyInfo
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetCategory(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the Category from the CategoryAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>Category</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetDataMemberName(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the Name from the DataMemberAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>Name</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetDefaultValue(System.Reflection.PropertyInfo)">
+            <summary>
+                Create a default for the property.
+                This can come from the DefaultValueFor from the DefaultValueAttribute
+                Or it can be something like an empty collection
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>object with a default value</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetDescription(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the Description from the DescriptionAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>Description</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetEmitDefaultValue(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the EmitDefaultValue from the DataMemberAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>EmitDefaultValue</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetReadOnly(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the IsReadOnly from the ReadOnlyAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <returns>IsReadOnly</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetTypeConverter(System.Reflection.PropertyInfo,System.Boolean)">
+            <summary>
+                Retrieve the TypeConverter from the TypeConverterAttribute for the supplied PropertyInfo
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <param name="createIfNothingSpecified">true if this should always create a converter</param>
+            <returns>TypeConverter</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.PropertyInfoExtension.GetPropertyInfo``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Gets property information for the specified <paramref name="property"/> expression.
+            </summary>
+            <typeparam name="TSource">Type of the parameter in the <paramref name="property"/> expression.</typeparam>
+            <typeparam name="TValue">Type of the property's value.</typeparam>
+            <param name="property">The expression from which to retrieve the property information.</param>
+            <returns>Property information for the specified expression.</returns>
+            <exception cref="T:System.ArgumentException">The expression is not understood.</exception>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.StreamExtensions">
+            <summary>
+            Extensions for Stream
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StreamExtensions.ToByteArray(System.IO.Stream)">
+            <summary>
+            Create a byte array for the stream
+            </summary>
+            <param name="stream">Stream</param>
+            <returns>byte array</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.StringExtensions">
+            <summary>
+                This class contains extensions for strings
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.RemoveNonAlphaDigitsToLower(System.String)">
+            <summary>
+                Helper method for converting a string to a non strict value.
+                This means, ToLowerInvariant and remove all non alpha/digits
+            </summary>
+            <param name="value">string</param>
+            <returns>string which is tolower an only has alpha and digits</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.FormatWith(System.String,System.Object[])">
+            <summary>
+                Format the string "format" with the source
+            </summary>
+            <param name="format">String with formatting, like {name}</param>
+            <param name="sources">
+                object [] with properties, if a property has the type IDictionary string,string it can used these
+                parameters too
+            </param>
+            <returns>Formatted string</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.FormatWith(System.String,System.IFormatProvider,System.Object[])">
+            <summary>
+                Format the string "format" with the source
+            </summary>
+            <param name="format">String with formatting, like {name}</param>
+            <param name="provider">IFormatProvider</param>
+            <param name="sources">
+                object with properties, if a property has the type IDictionary string,string it can used these
+                parameters too
+            </param>
+            <returns>Formatted string</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.MapToProperties(System.Collections.Generic.IDictionary{System.String,System.Object},System.Int32,System.Object)">
+            <summary>
+                Helper method to fill the properties with the values from the source
+            </summary>
+            <param name="properties">IDictionary with the possible properties</param>
+            <param name="index">int with index in the current sources</param>
+            <param name="source">object</param>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.NonStrictEquals(System.String,System.String)">
+            <summary>
+                Check if 2 strings are equal if both are made ToLower and all non alpha and digits are removed.
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+            <returns>true if they are 'equal'</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.RemoveStartEndQuotes(System.String)">
+            <summary>
+                Extension method to remove start and end quotes.
+            </summary>
+            <param name="input"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.SplitCsv(System.String,System.Char,System.Boolean)">
+            <summary>
+                Parse input for comma separated values
+            </summary>
+            <param name="input">string with comma separated values</param>
+            <param name="delimiter">string with delimiters, default is ,</param>
+            <param name="trimWhiteSpace"></param>
+            <returns>IEnumerable with value</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.StringExtensions.SplitDictionary(System.String)">
+            <summary>
+                Parse input for comma separated name=value pairs
+            </summary>
+            <param name="input">string with comma separated value pairs</param>
+            <returns>IDictionary with values</returns>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.TaskExtensions">
+            <summary>
+                A few simple task helpers.
+                These are in a different package so it doesn't hinder other IEnumerable extensions.
+                The code was based, but slightly modified, upon the blog entry <a href="http://blogs.msdn.com/b/pfxteam/archive/2011/11/10/10235834.aspx">here</a>
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TaskExtensions.WithTimeout``1(System.Threading.Tasks.Task{``0},System.Nullable{System.TimeSpan})">
+            <summary>
+                Create a task which timeouts after the specified timeout
+            </summary>
+            <typeparam name="TResult">Type for the result</typeparam>
+            <param name="task">Task</param>
+            <param name="timeout">optional TimeSpan</param>
+            <returns>Task with result</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TaskExtensions.WithTimeout(System.Threading.Tasks.Task,System.Nullable{System.TimeSpan})">
+            <summary>
+                Create a task which timeouts after the specified timeout
+            </summary>
+            <param name="task">Task</param>
+            <param name="timeout">optional TimeSpan</param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TaskExtensions.WithTimeoutInternal``1(System.Threading.Tasks.Task,System.Nullable{System.TimeSpan})">
+            <summary>
+                Internally used, to solve the generic issue
+            </summary>
+            <typeparam name="TResult">Type for the result</typeparam>
+            <param name="task"></param>
+            <param name="timeout"></param>
+            <returns>Task</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TaskExtensions.MarshalTaskResults``1(System.Threading.Tasks.Task,System.Threading.Tasks.TaskCompletionSource{``0})">
+            <summary>
+                This passes the result of a task to a TaskCompletionSource
+            </summary>
+            <typeparam name="TResult">Result type for the TaskCompletionSource</typeparam>
+            <param name="source">task</param>
+            <param name="taskCompletionSource"></param>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.TaskExtensions.VoidTypeStruct">
+            <summary>
+            Used to simulate a Task "of void" to satisfy the WithTimeoutInternal required Type argument
+            </summary>
+        </member>
+        <member name="T:Dapplo.Utils.Extensions.TypeExtensions">
+            <summary>
+                Extension for types
+            </summary>
+        </member>
+        <member name="F:Dapplo.Utils.Extensions.TypeExtensions.TypeToFriendlyName">
+            <summary>
+            Used for the generation of friendly names
+            </summary>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.AddDefaultConverter(System.Type,System.Type)">
+            <summary>
+                Add the default converter for the specified type
+            </summary>
+            <param name="type"></param>
+            <param name="typeConverter"></param>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.Cast(System.Type,System.Object)">
+            <summary>
+            Cast the supplied object to a certain type
+            </summary>
+            <param name="type">Type to cast to</param>
+            <param name="data">object to cast</param>
+            <returns>object</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.ConvertOrCastValueToType``1(System.Object,System.ComponentModel.TypeConverter,System.ComponentModel.ITypeDescriptorContext,System.Boolean)">
+            <summary>
+                Generic version of the same method with Type parameter,
+            </summary>
+            <typeparam name="T">target type</typeparam>
+            <param name="value"></param>
+            <param name="typeConverter">A TypeConverter can be passed for special cases</param>
+            <param name="typeDescriptorContext">A TypeDescriptorContext can be passed for special cases</param>
+            <param name="convertFrom"></param>
+            <returns>T</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.ConvertOrCastValueToType(System.Type,System.Object,System.ComponentModel.TypeConverter,System.ComponentModel.ITypeDescriptorContext,System.Boolean)">
+            <summary>
+                Convert or Cast the value TO targetType
+            </summary>
+            <param name="targetType">target type</param>
+            <param name="value">value to convert</param>
+            <param name="typeConverter">A TypeConverter can be passed for special cases</param>
+            <param name="typeDescriptorContext">A TypeDescriptorContext can be passed for special cases</param>
+            <param name="convertFrom">
+                True: the TypeConverter is called with convertFrom, false the TypeConverter is called with
+                convertTo
+            </param>
+            <returns>object as targetType, or null if this wasn't possible</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.CreateInstance(System.Type)">
+            <summary>
+                Create an instance of the supplied type
+            </summary>
+            <param name="valueType">Type which should be created</param>
+            <returns>instance of the type</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.GetConverter(System.Type)">
+            <summary>
+                Get the TypeConverter for the Type
+            </summary>
+            <param name="valueType">Type</param>
+            <returns>TypeConverter</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.TryConvert(System.Object,System.Type,System.ComponentModel.TypeConverter,System.ComponentModel.ITypeDescriptorContext,System.Boolean,System.Object@)">
+            <summary>
+                A helper method, this will try to convert the value to the target type with the supplied converter
+            </summary>
+            <param name="value"></param>
+            <param name="targetType"></param>
+            <param name="typeConverter"></param>
+            <param name="typeDescriptorContext"></param>
+            <param name="convertFrom"></param>
+            <param name="outValue">converted value</param>
+            <returns>true if success</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.FriendlyName(System.Type)">
+            <summary>
+            Get the name of a type which is readable, even if generics are used.
+            </summary>
+            <param name="type">Type</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Dapplo.Utils.Extensions.TypeExtensions.Default(System.Type)">
+            <summary>
+            Create a default value for a type, this usually is "null" for reference type, but for other, e.g. bool it's false or for int it's 0
+            This extension method takes care of this.
+            
+            Note: this differs a LOT from CreateInstance, as there we get an instance (e.g. for IList of string an empty List of string).
+            </summary>
+            <param name="type">Type to create a default for</param>
+            <returns>Default for type</returns>
+        </member>
+    </members>
+</doc>

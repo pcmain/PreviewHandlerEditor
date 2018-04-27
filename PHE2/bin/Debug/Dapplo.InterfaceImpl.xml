@@ -1,0 +1,1277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.InterfaceImpl</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.ShallowCloneableExtension`1">
+            <summary>
+                This implements logic to add write protect support to your proxied interface.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.ShallowCloneableExtension`1.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register setter and methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.ShallowCloneableExtension`1.Clone(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                IsWriteProtected logic checks if the supplied property Lambda expression is write protected.
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1">
+            <summary>
+                This implements logic to set the default values on your property interface.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.InitOrder">
+            <summary>
+                Make sure this extension is initialized first
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.GetConvertedDefaultValue(System.Reflection.PropertyInfo)">
+            <summary>
+                Retrieve the default value, using the TypeConverter
+            </summary>
+            <param name="propertyInfo">Property to get the default value for</param>
+            <returns>object with the type converted default value</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.GetDefaultValue(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Return the default value for a property
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register the methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.InitProperty(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo)">
+            <summary>
+                Process the property, in our case set the default
+            </summary>
+            <param name="interceptor"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.RestoreToDefault(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Return the default value for a property
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DefaultValueExtension`1.RestoreToDefault(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo,System.Exception@)">
+            <summary>
+                Method to restore a property to its default
+            </summary>
+            <param name="interceptor">IExtensibleInterceptor responsible for the object</param>
+            <param name="propertyInfo"></param>
+            <param name="exception">out value to get an exception</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.DescriptionExtension`1">
+            <summary>
+                This implements logic to set the default values on your property interface.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DescriptionExtension`1.GetDescription(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Return the description for a property
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.DescriptionExtension`1.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension">
+            <summary>
+                This implements logic to add change detection to your proxied interface.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.HasChanges(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This returns true if we have set (changed) values
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.HasChangesSetter(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                This is the implementation of the set logic
+            </summary>
+            <param name="setInfo">SetInfo with all the information on the set call</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+            Register setter and methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.ResetHasChanges(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Reset the has changes flag
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.IsChanged(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+               Test if the supplied property was changed
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.HasChangesExtension.Changes(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+            Returns the whole set of changed values, this is a cloned value.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension">
+            <summary>
+                This class implements the NotifyPropertyChanged extension logic,
+                which automatically generates NotifyPropertyChanged events when set is called.
+            Note: The event is running with UiContext.RunOn unless InterfaceImplConfig.UseUiContextRunOnForEvents is set to false.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register methods and setter
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.InvokePropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+                This is the logic which is called to invoke the event.
+            </summary>
+            <param name="sender">object</param>
+            <param name="eventArgs">PropertyChangedEventArgs</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.NotifyPropertyChangedSetter(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                This creates a NPC event if the values are changed
+            </summary>
+            <param name="setInfo">SetInfo with all the set call information</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.InvokePropertyChanged(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called to invoke the event.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.AddPropertyChanged(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called when the PropertyChanged event is registered.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangedExtension.RemovePropertyChanged(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called when the PropertyChanged event is unregistered.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension">
+            <summary>
+                This class implements the NotifyPropertyChanging extension logic,
+                which automatically generates NotifyPropertyChanging events when set is called.
+                Note: The event is running with UiContext.RunOn unless InterfaceImplConfig.UseUiContextRunOnForEvents is set to
+                false.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register methods and setter
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.InvokePropertyChanging(System.Object,System.ComponentModel.PropertyChangingEventArgs)">
+            <summary>
+                This is the logic which is called to invoke the event.
+            </summary>
+            <param name="sender">object</param>
+            <param name="eventArgs">PropertyChangingEventArgs</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.InvokePropertyChanging(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called to invoke the event.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.AddPropertyChanging(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called when the PropertyChanging event is registered.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.NotifyPropertyChangingSetter(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                This creates a NPC event if the values are changing
+            </summary>
+            <param name="setInfo">SetInfo with all the set call information</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.NotifyPropertyChangingExtension.RemovePropertyChanging(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This is the logic which is called when the PropertyChanging event is unregistered.
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TagExtension.GetTagValue(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Check if a property is tagged with a certain tag
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TagExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TagExtension.InitProperty(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo)">
+            <summary>
+                Process the property, in our case get the tags
+            </summary>
+            <param name="interceptor"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TagExtension.IsTaggedWith(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Check if a property is tagged with a certain tag
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension">
+            <summary>
+                This implements logic to add transactional support to your proxied interface.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register methods and getter/setter
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.TransactionalGetter(Dapplo.InterfaceImpl.Implementation.GetInfo)">
+            <summary>
+                This is the implementation of the getter logic for a transactional proxy
+            </summary>
+            <param name="getInfo">GetInfo with all the information on the get call</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.TransactionalSetter(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                This is the implementation of the set logic
+            </summary>
+            <param name="setInfo">SetInfo with all the information on the set call</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.CommitTransaction(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Logic to commit the transaction, all values set (changed) after starting the transaction are stored in the proxy
+                property store
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.IsTransactionDirty(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                This returns true if we have set (changed) values during a transaction
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.RollbackTransaction(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Logic to rollback the transaction, all values set (changed) after starting the transaction will be cleared
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.TransactionExtension.StartTransaction(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Logic to start the transaction, any setter used after this will be in the transaction
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension">
+            <summary>
+                This implements logic to add write protect support to your proxied interface.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.DisableWriteProtect(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                DisableWriteProtect removes the write protection of the supplied property in the LambdaExpression
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Register setter and methods
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.IsWriteProtected(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                IsWriteProtected logic checks if the supplied property Lambda expression is write protected.
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.RemoveWriteProtection(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                After calling this, nothing is write protected
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.StartWriteProtecting(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                After calling this, every set will be write protected
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.StopWriteProtecting(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Stop write protecting every property
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.WriteProtect(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                WriteProtect sets the write protection of the supplied property in the LambdaExpression
+            </summary>
+            <param name="methodCallInfo">IMethodCallMessage</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.Implementation.WriteProtectExtension.WriteProtectSetter(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                This is the implementation of the set logic
+            </summary>
+            <param name="setInfo">SetInfo with all the information on the set call</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IDefaultValue">
+            <summary>
+                Extend your property interface with this, and all default values specified with the DefaultValueAttribute will be
+                applied
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDefaultValue.DefaultValueFor(System.String)">
+            <summary>
+                Return the default value of the property
+            </summary>
+            <param name="propertyName"></param>
+            <returns>the default value, null if none</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDefaultValue.RestoreToDefault(System.String)">
+            <summary>
+                Restore the property value back to its default
+            </summary>
+            <param name="propertyName"></param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IDefaultValue`1">
+            <summary>
+                Extend your property interface with this, and all default values specified with the DefaultValueAttribute will be
+                applied
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDefaultValue`1.DefaultValueFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Return the default value of the property
+            </summary>
+            <typeparam name="TProp"></typeparam>
+            <param name="propertyExpression"></param>
+            <returns>the default value, null if none</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDefaultValue`1.RestoreToDefault``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Restore the property value back to its default
+            </summary>
+            <typeparam name="TProp"></typeparam>
+            <param name="propertyExpression"></param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IDescription">
+            <summary>
+                Extend your property interface with this, and you can read the DescriptionAttribute
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDescription.DescriptionFor(System.String)">
+            <summary>
+                Return the description of the property
+            </summary>
+            <param name="propertyName"></param>
+            <returns>the description, null if none</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IDescription`1">
+            <summary>
+                Extend your property interface with this, and you can read the DescriptionAttribute
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IDescription`1.DescriptionFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Return the description of the property
+            </summary>
+            <typeparam name="TProp"></typeparam>
+            <param name="propertyExpression"></param>
+            <returns>the description, null if none</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IHasChanges">
+            <summary>
+                Extending the to be property interface with this, adds a way of know if there were changes sind the last reset
+                Is used internally in the IniConfig to detect if a write is needed
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IHasChanges.HasChanges">
+            <summary>
+                Check if there are changes pending
+            </summary>
+            <returns>true when there are changes</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IHasChanges.ResetHasChanges">
+            <summary>
+                Reset the has changes flag
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IHasChanges.Changes">
+            <summary>
+            Retrieve all changes, 
+            </summary>
+            <returns>ISet with the property values</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IHasChanges.IsChanged(System.String)">
+            <summary>
+            Test if a property has been changed since the last reset
+            </summary>
+            <param name="propertyName"></param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IHasChanges`1">
+            <summary>
+            This is the generic version of IHasChanges, which supports property expressions
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IHasChanges`1.IsChanged``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Generic version of IsChanged which supports property expressions
+            </summary>
+            <typeparam name="TProp">Expression which supplies the property name</typeparam>
+            <param name="propertyExpression"></param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.AbstractInterceptorExtension">
+            <summary>
+                Base class for extensions, this should take away some default handling
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.AbstractInterceptorExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Initialize the extension, e.g. register methods etc.
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Extensions.AbstractInterceptorExtension.InitOrder">
+            <summary>
+                This returns 0, which means somewhere in the middle
+                If an extension needs to be called last, it should override this and for example return int.MaxValue
+                If an extension needs to be called first, it should override this and for example return int.MinValue
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.AbstractInterceptorExtension.InitProperty(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo)">
+            <summary>
+                Handle every property
+            </summary>
+            <param name="interceptor"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.AbstractInterceptorExtension.AfterInitialization(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                After property initialization
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.TagAttribute">
+            <summary>
+                Attribute to "Tag" properties as with certain information
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.TagAttribute.#ctor(System.Object)">
+            <summary>
+            Constructor for the TagAttribute
+            </summary>
+            <param name="tag">object with value for the tag</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.TagAttribute.#ctor(System.Object,System.Object)">
+            <summary>
+            Constructor for the TagAttribute
+            </summary>
+            <param name="tag">object with value for the tag</param>
+            <param name="tagValue">object with value for the tag value</param>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Extensions.TagAttribute.Tag">
+            <summary>
+            The tag
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Extensions.TagAttribute.TagValue">
+            <summary>
+            Get (or set) the value of the tag
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.ITagging">
+            <summary>
+                Interface which your interface needs to implement to be able to see if a property is tagged
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITagging.GetTagValue(System.String,System.Object)">
+            <summary>
+                Retrieve the value for tag
+            </summary>
+            <param name="propertyName">Name of the property to get the tag value</param>
+            <param name="tag">The tag value to get</param>
+            <returns>Tagged value or null</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITagging.IsTaggedWith(System.String,System.Object)">
+            <summary>
+                Checks if the supplied expression resolves to a property which has the expert attribute
+            </summary>
+            <param name="propertyName"></param>
+            <param name="tag">Tag to check if the property is tagged with</param>
+            <returns>true if the property has the expert attribute, else false</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.ITagging`1">
+            <summary>
+                Interface which your interface needs to implement to be able to see if a property is tagged
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITagging`1.GetTagValue``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Object)">
+            <summary>
+                Retrieve the value for tag
+            </summary>
+            <typeparam name="TProp">Your interfaces</typeparam>
+            <param name="propertyExpression"></param>
+            <param name="tag">Tag to check if the property is tagged with</param>
+            <returns>Tagged value or null</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITagging`1.IsTaggedWith``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.Object)">
+            <summary>
+                Checks if the supplied expression resolves to a property which has the expert attribute
+            </summary>
+            <typeparam name="TProp">Your interfaces</typeparam>
+            <param name="propertyExpression"></param>
+            <param name="tag">Tag to check if the property is tagged with</param>
+            <returns>true if the property has the expert attribute, else false</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.ITransactionalProperties">
+            <summary>
+                Extending the to be property interface with this, adds transactional support
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITransactionalProperties.CommitTransaction">
+            <summary>
+                Apply the stored changes from the cache to the property object
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITransactionalProperties.IsTransactionDirty">
+            <summary>
+                Check if there are changes pending
+            </summary>
+            <returns>true when there are changes</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITransactionalProperties.RollbackTransaction">
+            <summary>
+                Cancel the transaction, this will clear the stored changes
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.ITransactionalProperties.StartTransaction">
+            <summary>
+                This method will start the transaction, all changes will be stored in a separate cache.
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties">
+            <summary>
+                Extending the to be property interface with this, adds write protection
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.DisableWriteProtect(System.String)">
+            <summary>
+                Disable the write protection of the supplied property
+            </summary>
+            <param name="propertyName">Name of the property to disable the write protect for</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.IsWriteProtected(System.String)">
+            <summary>
+                Test if the supplied property is write protected
+            </summary>
+            <param name="propertyName">Name of the property</param>
+            <returns>true if the property is protected</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.RemoveWriteProtection">
+            <summary>
+                Remove the write protection
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.StartWriteProtecting">
+            <summary>
+                After calling this method, every changed property will be write-protected
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.StopWriteProtecting">
+            <summary>
+                End the write protecting
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties.WriteProtect(System.String)">
+            <summary>
+                Write protect the supplied property
+            </summary>
+            <param name="propertyName">Name of the property to write protect</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties`1">
+            <summary>
+                Extending the to be property interface with this, adds write protection
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties`1.DisableWriteProtect``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Disable the write protection of the supplied property (by lamdba)
+            </summary>
+            <typeparam name="TProp">will be automatically set by the expression</typeparam>
+            <param name="propertyExpression">Property to disable the write protect</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties`1.IsWriteProtected``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Test if the supplied property (by lamdba) is write protected
+            </summary>
+            <typeparam name="TProp">will be automatically set by the expression</typeparam>
+            <param name="propertyExpression">Property to test</param>
+            <returns>true if the property is protected</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Extensions.IWriteProtectProperties`1.WriteProtect``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Write protect the supplied property (by lamdba)
+            </summary>
+            <typeparam name="TProp">will be automatically set by the expression</typeparam>
+            <param name="propertyExpression">Property to write protect</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IlGeneration.IlEventBuilder">
+            <summary>
+                Internally used to generate the methods which event logic uses
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlEventBuilder.BuildEvent(System.Reflection.Emit.TypeBuilder,System.Reflection.EventInfo,System.Collections.Generic.IList{System.String})">
+            <summary>
+                Create the methods add_ remove_ and invoke_ (custom) event-name
+            </summary>
+            <param name="typeBuilder">TypeBuilder</param>
+            <param name="eventInfo">eventInfo</param>
+            <param name="baseMethods">List of string with the method names of the base class, this is used to decide what can be skipped</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IlGeneration.IlGetSetBuilder">
+            <summary>
+                Internally used to generate a method via IL
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlGetSetBuilder.BuildGetSet(System.Reflection.Emit.TypeBuilder,System.Reflection.PropertyInfo)">
+            <summary>
+                Create getter and/or setter
+            </summary>
+            <param name="typeBuilder"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlGetSetBuilder.BuildGetter(System.Reflection.Emit.TypeBuilder,System.Reflection.PropertyInfo)">
+            <summary>
+                Build the getter for the property
+            </summary>
+            <param name="typeBuilder"></param>
+            <param name="propertyInfo"></param>
+            <returns>MethodBuilder with the getter</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlGetSetBuilder.BuildSetter(System.Reflection.Emit.TypeBuilder,System.Reflection.PropertyInfo)">
+            <summary>
+                Build the Setter for the property
+            </summary>
+            <param name="typeBuilder">TypeBuilder</param>
+            <param name="propertyInfo">PropertyInfo which defines the type and name</param>
+            <returns>MethodBuilder with the Setter</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IlGeneration.IlMethodBuilder">
+            <summary>
+                Internally used to generate a method via IL
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlMethodBuilder.BuildMethod(System.Reflection.Emit.TypeBuilder,System.Reflection.MethodInfo)">
+            <summary>
+                Create the method invoke
+            </summary>
+            <param name="typeBuilder"></param>
+            <param name="methodInfo"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlMethodBuilder.GenerateForwardingIlMethod(System.Reflection.Emit.MethodBuilder,System.String,System.Int32,System.Type)">
+            <summary>
+            Generate a forwarding method, this calls IExtensibleInterceptor.Invoke
+            </summary>
+            <param name="methodBuilder">MethodBuilder</param>
+            <param name="methodName">name of the method</param>
+            <param name="parameters">number of parameters</param>
+            <param name="returnType">Type</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlMethodBuilder.GetArgumentNames(System.Collections.Generic.IReadOnlyList{System.Type})">
+            <summary>
+                Gets the argument names from an array of generic argument types.
+            </summary>
+            <param name="genericArguments">The generic arguments.</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder">
+            <summary>
+            Use Il to build a type for a specified interface
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder.CreateOrGet(System.Boolean,System.String)">
+            <summary>
+            IlTypeBuilder factory, returns the DefaultInstance if there is no derrivate
+            </summary>
+            <param name="allowSave">specify true if you also want to be able to save</param>
+            <param name="assemblyNameString">Name of the assembly</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder.#ctor(System.Boolean,System.String)">
+            <summary>
+            Create an IlTypeBuilder
+            </summary>
+            <param name="allowSave">specify true if you also want to be able to save</param>
+            <param name="assemblyNameString">Name of the assembly</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder.TryGetType(System.String,System.Type@)">
+            <summary>
+            Checks if this type builder already created the type, or return null if not
+            </summary>
+            <param name="fqTypeName">The name of the type</param>
+            <param name="type">The out variable for the type</param>
+            <returns>bool with true if found</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder.CreateType(System.String,System.Type[],System.Type)">
+            <summary>
+                Creates an implementation as Type for a given interface, which can be intercepted
+            </summary>
+            <param name="typeName">Name of the type to generate</param>
+            <param name="implementingInterfaces">Interfaces to implement</param>
+            <param name="baseType">Type as base</param>
+            <returns>Type</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IlGeneration.IlTypeBuilder.SaveAssemblyDll(System.String)">
+            <summary>
+                Save the "up to now" generated assembly
+            </summary>
+            <param name="dllName">Full path for the DLL</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.ExtensionAttribute">
+            <summary>
+                Use this attribute to mark the extension with the interface that is supports.
+                If the proxied interface extends such an interface, the extension is automatically loaded.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.ExtensionAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor for the ExtensionAttribute
+            </summary>
+            <param name="implementing">Interface-type which the extension will "implement"</param>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.ExtensionAttribute.Implementing">
+            <summary>
+            Interface-type which the extension will "implement"
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IExtensibleInterceptor">
+            <summary>
+                This is the interface for the interceptor
+                The meaning of this interface is to make clear what the interceptor has:
+                Extensions can register get/set/invokes
+                It is called by a generated (or manually implemented) implementation of an interface, this implementation calls the
+                Get/Set/Invoke
+                Properties of the "interface" have a backingstore implemented via the special property "Properties" and some other
+                helping properties.
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.IExtensibleInterceptor.InitializationErrors">
+            <summary>
+                Errors which occur during initialization are stored here
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.IExtensibleInterceptor.InterceptedType">
+            <summary>
+            The type which is intercepted
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.IExtensibleInterceptor.Properties">
+            <summary>
+                All the properties with their value
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.IExtensibleInterceptor.PropertyTypes">
+            <summary>
+                This is needed as a reflection cache
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.PropertyNameFor(System.String)">
+            <summary>
+            Retrieve the real Property name, if you only have a key whích isn't exact
+            </summary>
+            <param name="possibleProperyName">Possible property name, like without capitals etc</param>
+            <returns>The real property name</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.AddExtension(System.Type)">
+            <summary>
+                Add extension to the interceptor
+            </summary>
+            <param name="extensionType"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.Description(System.String)">
+            <summary>
+            Return the value from the DescriptionAttribute of this property
+            </summary>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.Get(System.String)">
+            <summary>
+                Get method, this will go through the extensions in the specified order and give the result
+            </summary>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.Init">
+            <summary>
+                Initialize the interceptor
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.Invoke(System.String,System.Object[])">
+            <summary>
+            </summary>
+            <param name="methodName"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.RegisterGetter(System.Int32,System.Action{Dapplo.InterfaceImpl.Implementation.GetInfo})">
+            <summary>
+            This will register a getter, with an order
+            </summary>
+            <param name="order">The order is used to sort all getters, you can use the CallOrder enum for positioning</param>
+            <param name="getterAction">An Action for the getter, the argument is GetInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.RegisterMethod(System.String,System.Action{Dapplo.InterfaceImpl.Implementation.MethodCallInfo})">
+            <summary>
+            This will register an action for a certain method. No overloading...
+            </summary>
+            <param name="methodname">Name of the method</param>
+            <param name="methodAction">Action which accepts MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.RegisterSetter(System.Int32,System.Action{Dapplo.InterfaceImpl.Implementation.SetInfo})">
+            <summary>
+            This will register a setter, with an order
+            </summary>
+            <param name="order">The order is used to sort all setters, you can use the CallOrder enum for positioning</param>
+            <param name="setterAction">An Action for the setter, the argument is SetInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IExtensibleInterceptor.Set(System.String,System.Object)">
+            <summary>
+                This is called when a property set is used on the intercepted class.
+            </summary>
+            <param name="propertyName">property name</param>
+            <param name="value">object value</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.IInterceptorExtension">
+            <summary>
+                Extensions for the IExtensibleInterceptor need to extend this interface.
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.IInterceptorExtension.InitOrder">
+            <summary>
+                Specify the Init-Order, low first and high later
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IInterceptorExtension.AfterInitialization(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                After property initialization, in here exceptions can be ignored or caches created
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IInterceptorExtension.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Initialize the extension, this should register the methods/get/set
+            </summary>
+            <param name="interceptor"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.IInterceptorExtension.InitProperty(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo)">
+            <summary>
+                This is called for every Property on type T, so we only have 1x reflection
+            </summary>
+            <param name="interceptor"></param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.CallOrder">
+            <summary>
+                Helper enum for the call order, used when registering the setter
+            </summary>
+        </member>
+        <member name="F:Dapplo.InterfaceImpl.Implementation.CallOrder.First">
+            <summary>
+            Everything which has this as their order would be invoked first 
+            </summary>
+        </member>
+        <member name="F:Dapplo.InterfaceImpl.Implementation.CallOrder.Middle">
+            <summary>
+            Everything which has this as their order would be invoked somewhere between first and last 
+            </summary>
+        </member>
+        <member name="F:Dapplo.InterfaceImpl.Implementation.CallOrder.Last">
+            <summary>
+            Everything which has this as their order would be invoked last 
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1">
+            <summary>
+                Implementation of the IInterceptor
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.#ctor">
+            <summary>
+                Constructor
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.AddExtension(System.Type)">
+            <summary>
+                Add an extension to the proxy, these extensions contain logic which enhances the proxy
+            </summary>
+            <param name="extensionType">Type for the extension</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Description(System.String)">
+            <summary>
+                Get the description attribute for a property
+            </summary>
+            <param name="propertyName">Name of the property</param>
+            <returns>description</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Init">
+            <summary>
+                Initialize, make sure every property is processed by the extensions
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.AfterInitialization(System.Collections.Generic.IEnumerable{Dapplo.InterfaceImpl.IInterceptorExtension})">
+            <summary>
+            Called after the Initialization, this allows us to e.g. ignore errors
+            </summary>
+            <param name="extensions"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.InitProperty(System.Reflection.PropertyInfo,System.Collections.Generic.IEnumerable{Dapplo.InterfaceImpl.IInterceptorExtension})">
+            <summary>
+            Call all extensions to initialize whatever needs to be initialized for a property
+            </summary>
+            <param name="propertyInfo">PropertyInfo</param>
+            <param name="extensions">IList with IInterceptorExtension</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.System#ICloneable#Clone">
+            <summary>
+            Make a shallow copy of the instance
+            </summary>
+            <returns>new instance with only the references copied</returns>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.InitializationErrors">
+            <summary>
+                If an exception is catched during the initialization, it can be found here
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.PropertyTypes">
+            <summary>
+                Get type of a property
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Properties">
+            <summary>
+                Get the raw property values of the property object
+                Can be used to modify the directly, or for load/save
+                Assignment to this will copy all the supplied properties.
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.InterceptedType">
+            <summary>
+            The type which is intercepted
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Item(System.String)">
+            <summary>
+                Get the value for a property.
+            Note: This needs to be virtual otherwise the interface isn't implemented
+            </summary>
+            <param name="key">string with key for the property to get</param>
+            <returns>object or null if not available</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.PropertyNameFor(System.String)">
+            <summary>
+            Retrieve the real Property name, if you only have a key whích isn't exact
+            </summary>
+            <param name="possibleProperyName">Possible property name, like without capitals etc</param>
+            <returns>The real property name</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.RegisterMethod(System.String,System.Action{Dapplo.InterfaceImpl.Implementation.MethodCallInfo})">
+            <summary>
+                Register a method for the proxy
+            </summary>
+            <param name="methodname">string</param>
+            <param name="methodAction">Action which accepts a MethodCallInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.RegisterSetter(System.Int32,System.Action{Dapplo.InterfaceImpl.Implementation.SetInfo})">
+            <summary>
+                Register a setter, this will be called when the proxy's set is called.
+            </summary>
+            <param name="order">int to specify when (in what order) the setter is called</param>
+            <param name="setterAction">Action which accepts SetInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.RegisterGetter(System.Int32,System.Action{Dapplo.InterfaceImpl.Implementation.GetInfo})">
+            <summary>
+                Register a getter, this will be called when the proxy's get is called.
+            </summary>
+            <param name="order">int to specify when (in what order) the getter is called</param>
+            <param name="getterAction">Action which accepts GetInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Get(System.String)">
+            <summary>
+                Pretend the get on the property object was called
+                This will invoke the normal get, going through all the registered getters
+            </summary>
+            <param name="propertyName">Name of the property</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Set(System.String,System.Object)">
+            <summary>
+                Pretend the set on the property object was called
+                This will invoke the normal set, going through all the registered setters
+            </summary>
+            <param name="propertyName">Name of the property to set</param>
+            <param name="value">Value to set</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.Invoke(System.String,System.Object[])">
+            <summary>
+                The method invocation
+            </summary>
+            <param name="methodName">string</param>
+            <param name="parameters">params</param>
+            <returns>return value</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.DefaultGet(Dapplo.InterfaceImpl.Implementation.GetInfo)">
+            <summary>
+                A default implementation of the get logic
+            </summary>
+            <param name="getInfo">GetInfo</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.ExtensibleInterceptorImpl`1.DefaultSet(Dapplo.InterfaceImpl.Implementation.SetInfo)">
+            <summary>
+                A default implementation of the set logic
+            </summary>
+            <param name="setInfo">SetInfo</param>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.GetInfo">
+            <summary>
+                This class contains all the information for the getter actions
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetInfo.HasValue">
+            <summary>
+                The value of the property
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetInfo.Value">
+            <summary>
+                The value of the property
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.GetSetInfo">
+            <summary>
+            Information for a Get or Set invocation
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.Interceptor">
+            <summary>
+            The interceptor that created this GetSetInfo
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.CanContinue">
+            <summary>
+                Can the proxy continue with other getter/setters?
+                This should be set to false if a getter/setter implementation wants to throw an exception or thinks there should be
+                no more others.
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.Error">
+            <summary>
+                This can be set to an exception if a getter/setter wants to throw an exception
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.HasError">
+            <summary>
+                Simple property to check for error
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.PropertyName">
+            <summary>
+                Property name of the property that is being get/set
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.GetSetInfo.PropertyType">
+            <summary>
+                Type of the property that is being get/set
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.Getter">
+            <summary>
+                Container class to store the getters, this allows them to be ordered.
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.GetterSetter">
+            <summary>
+                Container class to store the setters, this allows them to be ordered.
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.MethodCallInfoExtensions">
+            <summary>
+            Extensions for the MethodCallInfo
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.Implementation.MethodCallInfoExtensions.PropertyNameOf(Dapplo.InterfaceImpl.Implementation.MethodCallInfo,System.Int32)">
+            <summary>
+                Get the property name from the argument "index" of the MethodCallInfo
+                If the argument is a string, it will be returned.
+                If the arugment is a LambdaExpression, the member name will be retrieved
+            </summary>
+            <param name="methodCallInfo">MethodCallInfo</param>
+            <param name="index">Index of the argument</param>
+            <returns>Property name</returns>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.MethodCallInfo">
+            <summary>
+                This container holds all the information that is needed for extending the proxy with a method call
+                It contains the arguments, return value and out arguments for an invoke.
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.Interceptor">
+            <summary>
+            The interceptor that created this MethodCallInfo
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.Arguments">
+            <summary>
+                the supplied arguments for the invoke
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.Error">
+            <summary>
+                Exception which will be passed to the invoking code
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.HasError">
+            <summary>
+                Simple check for the exception
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.MethodName">
+            <summary>
+                Name of the invoked method
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.OutArgsCount">
+            <summary>
+                get the Out-Arguments-count
+                The ReturnMessage expects the outArgs/outArgsCount to have the return value in there too, this is why the get
+                honors this.
+                See:
+                https://connect.microsoft.com/VisualStudio/feedback/details/752487/realproxy-invoke-method-throws-an-overflowexception-when-calling-endinvoke
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.OutArguments">
+            <summary>
+                get/set the Out-Arguments
+                The ReturnMessage expects the outArgs/outArgsCount to have the return value in there too, this is why the get
+                honors this.
+                See:
+                https://connect.microsoft.com/VisualStudio/feedback/details/752487/realproxy-invoke-method-throws-an-overflowexception-when-calling-endinvoke
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.MethodCallInfo.ReturnValue">
+            <summary>
+                Return value for the invoke
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.SetInfo">
+            <summary>
+                This class contains all the information for the setter actions
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.SetInfo.HasOldValue">
+            <summary>
+                Does property have an old value?
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.SetInfo.NewValue">
+            <summary>
+                The new value for the property
+            </summary>
+        </member>
+        <member name="P:Dapplo.InterfaceImpl.Implementation.SetInfo.OldValue">
+            <summary>
+                The old value of the property, if any (see HasOldValue)
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.Implementation.Setter">
+            <summary>
+                Container class to store the setters, this allows them to be ordered.
+            </summary>
+        </member>
+        <member name="T:Dapplo.InterfaceImpl.InterceptorFactory">
+            <summary>
+                This class is a factory which can create an implementation for an interface.
+                It can "new" the implementation, add intercepting code and extensions.
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.#cctor">
+            <summary>
+            Register the known extensions
+            </summary>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.DefineBaseTypeForInterface(System.Type,System.Type)">
+            <summary>
+                This should be used to define the base type for the implementation of the interface
+            </summary>
+            <param name="interfaceType"></param>
+            <param name="baseType">should extend ExtensibleInterceptorImpl</param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.DefineDefaultInterfaces(System.Type,System.Type[])">
+            <summary>
+                This should be used to difine which default interfaces are added to the interfaces
+                e.g. the IIniSection gets IDefaultValue and IHasChanges
+            </summary>
+            <param name="interfaceType"></param>
+            <param name="defaultInterfaces"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.DefineImplementationTypeForInterface(System.Type,System.Type)">
+            <summary>
+                If there is an implementation for the interface available, register it here.
+            </summary>
+            <param name="interfaceType"></param>
+            <param name="implementation"></param>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.New``1">
+            <summary>
+                Create an implementation, or reuse an existing, for an interface.
+                Create an instance, add intercepting code, which implements a range of interfaces
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <returns>implementation</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.New(System.Type)">
+            <summary>
+                Create an implementation, or reuse an existing, for an interface.
+                Create an instance, add intercepting code, which implements a range of interfaces
+            </summary>
+            <param name="interfaceType">Type</param>
+            <returns>implementation</returns>
+        </member>
+        <member name="M:Dapplo.InterfaceImpl.InterceptorFactory.RegisterExtension(System.Type)">
+            <summary>
+                Use this to register an Type for extension
+            </summary>
+            <param name="extensionType">Type</param>
+        </member>
+    </members>
+</doc>

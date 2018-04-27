@@ -1,0 +1,19 @@
+
+
+Adobe PDF Preview Handler for Vista
+Microsoft 3MF Shell Thumbnail and Preview Handler
+Microsoft Excel previewer
+Microsoft PowerPoint previewer
+Microsoft Visio previewer
+Microsoft Windows Mail Html Preview Handler
+Microsoft Windows Mail Html Preview Handler
+Microsoft Windows Mail Mime Preview Handler
+Microsoft Windows Mail Mime Preview Handler
+Microsoft Windows MAPI Preview Handler
+Microsoft Word previewer
+Microsoft XPS Rich Preview Handler
+Windows Contact Preview Handler
+Windows Font previewer
+Windows Media Player Rich Preview Handler
+Windows RTF Previewer
+Windows TXT Previewer

@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dapplo.Registry</name>
+    </assembly>
+    <members>
+        <member name="T:Dapplo.Registry.Implementation.RegistryExtension`1">
+            <summary>
+                Extend the PropertyProxy with Registry functionality
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.Implementation.RegistryExtension`1.InitOrder">
+            <summary>
+                Make sure this extension is initialized last
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.Implementation.RegistryExtension`1.Initialize(Dapplo.InterfaceImpl.IExtensibleInterceptor)">
+            <summary>
+                Initialize the extension
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.Implementation.RegistryExtension`1.InitProperty(Dapplo.InterfaceImpl.IExtensibleInterceptor,System.Reflection.PropertyInfo)">
+            <summary>
+                Process the property, in our case read the registry
+            </summary>
+            <param name="interceptor">IExtensibleInterceptor which is used to access the base properties</param>
+            <param name="propertyInfo"></param>
+        </member>
+        <member name="M:Dapplo.Registry.Implementation.RegistryExtension`1.PathFor(Dapplo.InterfaceImpl.Implementation.MethodCallInfo)">
+            <summary>
+                Supply the path to the property
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.Implementation.RegistryExtension`1.PathFor(System.Reflection.MemberInfo)">
+            <summary>
+                Hrlp
+            </summary>
+            <param name="propertyInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dapplo.Registry.ProtocolHandler">
+            <summary>
+                This is the handler for a custom protocol
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.ProtocolHandler.RegisterUrlProtocol(System.String,System.String,System.String)">
+            <summary>
+                Registers an user defined URL protocol for the usage with
+                the Windows Shell, the Internet Explorer and Office.
+                Example for an URL of an user defined URL protocol:
+                rainbird://RemoteControl/OpenFridge/GetBeer
+            </summary>
+            <param name="protocolName">Name of the protocol (e.g. "rainbird" für "rainbird://...")</param>
+            <param name="applicationPath">
+                Complete file system path to the EXE file, which processes the URL being called (the
+                complete URL is handed over as a Command Line Parameter).
+            </param>
+            <param name="description">Description (e.g. "URL:Rainbird Custom URL")</param>
+        </member>
+        <member name="T:Dapplo.Registry.RegistryAttribute">
+            <summary>
+                Specify the base settings for the registry property proxy interface
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.RegistryAttribute.#ctor">
+            <summary>
+                Default Constructor
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.RegistryAttribute.#ctor(System.String)">
+            <summary>
+                Constructor with path
+            </summary>
+            <param name="path"></param>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryAttribute.Hive">
+            <summary>
+                What hive to use, see RegistryHive
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryAttribute.Path">
+            <summary>
+                Path to key
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryAttribute.View">
+            <summary>
+                What view to use, default is Default
+            </summary>
+        </member>
+        <member name="T:Dapplo.Registry.RegistryPropertyAttribute">
+            <summary>
+                Attribute to mark properties, and map them to the registry
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.RegistryPropertyAttribute.#ctor">
+            <summary>
+                Default constructor
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.RegistryPropertyAttribute.#ctor(System.String,System.String)">
+            <summary>
+                Constructor with path and value
+            </summary>
+            <param name="path">Path in the registry</param>
+            <param name="value">Name of the value</param>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.HasHive">
+            <summary>
+                What hive to use, see RegistryHive
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.HasView">
+            <summary>
+                Is there a view?
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.Hive">
+            <summary>
+                What hive to use, see RegistryHive
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.IgnoreErrors">
+            <summary>
+                Set ignore errors to false, if you want an exception when a parse error occurs.
+                Default this is set to true, which will cause the property to have the "default" value.
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.Kind">
+            <summary>
+                Specify what kind of value
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.Path">
+            <summary>
+                Path to key
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.Value">
+            <summary>
+                Value in key, can be null to select all values or "" to select the default value
+            </summary>
+        </member>
+        <member name="P:Dapplo.Registry.RegistryPropertyAttribute.View">
+            <summary>
+                What View to use, see RegistryView
+            </summary>
+        </member>
+        <member name="T:Dapplo.Registry.IRegistry">
+            <summary>
+                Interface for a registry object
+            </summary>
+        </member>
+        <member name="M:Dapplo.Registry.IRegistry.PathFor(System.String)">
+            <summary>
+                The path for the property
+            </summary>
+            <param name="propertyName">Name of the property</param>
+            <returns>string with the path</returns>
+        </member>
+        <member name="T:Dapplo.Registry.IRegistry`1">
+            <summary>
+                Generic version of the IRegistry interface
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Dapplo.Registry.IRegistry`1.PathFor``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+                Return the registry path for a property
+            </summary>
+            <typeparam name="TProp"></typeparam>
+            <param name="propertyExpression"></param>
+            <returns>the path to a property</returns>
+        </member>
+    </members>
+</doc>
